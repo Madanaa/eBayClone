@@ -8,7 +8,6 @@ public class EBayPlatformApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EBayPlatformApplication.class, args);
-
 	}
 
 }
