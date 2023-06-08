@@ -1,5 +1,6 @@
 package ebay.clone.eBay.platform.service.impl;
 
+import ebay.clone.eBay.platform.exception.InvalidCrendtentailsException;
 import ebay.clone.eBay.platform.exception.UserAlreadyExitsException;
 import ebay.clone.eBay.platform.model.User;
 import ebay.clone.eBay.platform.payload.UserDTO;
@@ -16,8 +17,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
+   @Autowired
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -38,6 +38,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User loginUser(String userName, String password) {
-        return null;
+        User user = userRepository.findByUserName(userName);
+        if (user == null || !passwordEncoder.matches(password,user.getPassword())) {
+            throw new InvalidCrendtentailsException("Invalid username or password");
+        }
+        return user;
     }
 }
