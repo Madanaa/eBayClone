@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-   @Autowired
+    private String userName;
+
+    @Autowired
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -43,5 +45,14 @@ public class UserServiceImpl implements UserService {
             throw new InvalidCrendtentailsException("Invalid username or password");
         }
         return user;
+    }
+
+    public String getUserName() {
+        String userName = null;
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
